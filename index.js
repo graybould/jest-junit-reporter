@@ -6,7 +6,7 @@ const path = require('path');
 const connection = require('../../__tests__/integration/connection.json');
 
 module.exports = (results) => {
-    
+
     const data =
         {
             numFailedTestSuites: results.numFailedTestSuites,
@@ -27,7 +27,7 @@ module.exports = (results) => {
     data.testResults =
         results.testResults.map((testSuite)=>{
             return {
-                filePath : testSuite.testFilePath,
+                filePath : testSuite.testFilePath.replace(/'/g, '\"'),
                 fileName : testSuite.testFilePath.substring(testSuite.testFilePath.lastIndexOf("\\") + 1),
                 fileDirectory : testSuite.testFilePath.substring(testSuite.testFilePath.indexOf("integration")+12,testSuite.testFilePath.lastIndexOf("\\")),
                 passed : testSuite.numPassedTests,
@@ -38,11 +38,11 @@ module.exports = (results) => {
 
                     return {
                         sequenceNumber: testSuite.testResults.indexOf(testCase),
-                        ancestors: testCase.ancestorTitles,
+                        ancestors: testCase.ancestorTitles.map(title => title.replace(/'/g, '\"')),
                         failureMessages : testCase.failureMessages.map(message => new Failure(message)),
-                        fullName : testCase.fullName,
-                        status : testCase.status,
-                        testCase : testCase.title
+                        fullName : testCase.fullName.replace(/'/g, '\"'),
+                        status : testCase.status.replace(/'/g, '\"'),
+                        testCase : testCase.title.replace(/'/g, '\"')
                     };
                 })
             };

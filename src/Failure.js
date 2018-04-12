@@ -12,7 +12,7 @@ class Failure {
       endResult = fix.indexOf("Difference:");
     }else{
         startResult = fix.indexOf("Expected value");
-        endResult = fix.indexOf("at Object.<anon");
+        endResult = fix.indexOf("at Object.");
     }
 
     message = fix.substring(startResult, endResult);
@@ -20,8 +20,8 @@ class Failure {
     var expect = message.substring(0, message.indexOf("Received:"));
     var receive = message.substring(message.indexOf("Received:"));
 
-    expect = expect.replace(/'/g, '\"');
-    receive = receive.replace(/'/g, '\"');
+    expect = expect.replace(/'/g, '\"').trim();
+    receive = receive.replace(/'/g, '\"').trim();
 
       this.failure =
       {
