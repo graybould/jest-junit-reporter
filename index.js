@@ -3,10 +3,10 @@ const Failure = require('./src/Failure');
 const xml = require('xml');
 const fs = require('fs');
 const path = require('path');
-
+const connection = require('../../__tests__/integration/connection.json');
 
 module.exports = (results) => {
-
+    
     const data =
         {
             numFailedTestSuites: results.numFailedTestSuites,
@@ -20,6 +20,7 @@ module.exports = (results) => {
             numTotalTests: results.numTotalTests,
             startTime: results.startTime,
             success: results.success,
+            environment:connection.env.toUpperCase(),
             testResults: []
         };
 

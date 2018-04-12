@@ -23,9 +23,6 @@ class Failure {
     expect = expect.replace(/'/g, '\"');
     receive = receive.replace(/'/g, '\"');
 
-    console.log(expect);
-    console.log(receive);
-
       this.failure =
       {
         expected: expect,
